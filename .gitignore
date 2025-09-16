@@ -1,0 +1,10 @@
+taskflow-frontend/node_modules
+taskflow-backend/node_modules
+taskflow-frontend/.env
+taskflow-backend/.env
+.DS_Store
+.idea
+.vscode
+dist
+coverage
+npm-debug.log*
