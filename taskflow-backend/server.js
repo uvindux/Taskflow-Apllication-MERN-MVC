@@ -1,25 +1,34 @@
+const express = require('express');
+const cors = require('cors');
+const mongoose = require('mongoose');
 const app = require('./app.js');
+const router = require('./router');
 
 const PORT = 3000;
-const HOST = '127.0.0.1';
-const mongoose = require('mongoose');
+const HOST = 'localhost';
+
+// Middleware
 app.use(cors());
-app.use( express.json() );
+app.use(express.json());
 
-const url ='mongodb+srv://Manohara:<db_password>@cluster0.99hzwty.mongodb.net/?appName=Cluster0';
-const connect =async()=>{
-  try{
+// Routes
+app.use('/api', router);
+
+// MongoDB connection
+const url = 'mongodb+srv://Manohara:Uvi%402018@cluster0.99hzwty.mongodb.net/?appName=Cluster0';
+
+const connect = async () => {
+  try {
     await mongoose.connect(url);
-    console.log("Connected to the database successfully");
-
+    console.log('✅ Connected to the database successfully');
+  } catch (err) {
+    console.log('❌ Error connecting to the database:', err.message);
   }
-  catch{
-    console.log("Error connecting to the database");
-
-  }
-}
+};
 
 connect();
-const server = app.listen(PORT, HOST, () => {
-  console.log(`Server is running without an issue in ${HOST}:${server.address().port}`);
+
+// Start server
+app.listen(PORT, HOST, () => {
+  console.log(`🚀 Server running at http://${HOST}:${PORT}`);
 });

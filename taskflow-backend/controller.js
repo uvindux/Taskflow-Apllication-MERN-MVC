@@ -52,9 +52,6 @@ const UserDelete = (req, res, next) => {
 
 
 exports.getUsers = getUsers;
-
-
-exports.getUsersByID = getUsersByID;
 exports.addUser = addUser;
 exports.UpdateUser = UpdateUser;
 exports.UserDelete = UserDelete;
