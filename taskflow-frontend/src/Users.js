@@ -33,8 +33,9 @@ const Users = () => {
     }
     Axios.post ('http://localhost:3000/api/createuser',payload)
      .then(response => {
-        // console.log(response.data); // ✅ show real data
-        setUsers(response.data.response);    // ✅ update state
+       
+       fetchUsers();  
+       setsubmitted(false); 
       })
       .catch(error => {
         console.error('Error fetching users: ', error);
@@ -44,8 +45,9 @@ const Users = () => {
 
   return (
     <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '100px' }}>
-      <UserForm refreshUsers={fetchUsers} /> {/* optional: pass refresh function */}
-      <UsersTable rows={users} />
+      <UserForm addUser= {AddUser} Submitted={submitted} /> {/* optional: pass refresh function */}
+      <UsersTable rows={users}  />
+     
     </Box>
   );
 };

@@ -2,7 +2,7 @@ import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
 import React from 'react'
 
 function UsersTable({ rows }) {
-      console.log(rows);
+   
 
       return (
             <TableContainer component={Paper}>
