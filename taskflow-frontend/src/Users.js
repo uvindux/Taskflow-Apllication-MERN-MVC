@@ -7,6 +7,9 @@ import Axios from 'axios';
 const Users = () => {
   const [submitted,setsubmitted] = useState(false);
   const [users, setUsers] = useState([]);
+  const[selectedUser,SetselectedUser ] =useState({});
+  const[isEdite,setIsEdite]=useState(false);
+
 
   // Fetch users when component loads
   useEffect(() => {
@@ -43,10 +46,57 @@ const Users = () => {
     
   };
 
+
+  const updateUser=(data)=>{
+
+    setsubmitted(true);
+    const payload ={
+      id: data.id,
+      name:data.name,
+    }
+     Axios.post ('http://localhost:3000/api/updateuser',payload)
+     .then(response => {
+       
+       fetchUsers();  
+       setsubmitted(false); 
+      })
+      .catch(error => {
+        console.error('Error fetching users: ', error);
+      });
+    
+
+
+  }
+  const DeleteUSer=(data)=>{
+   
+     Axios.post ('http://localhost:3000/api/deleteuser',data)
+     .then(response => {
+       
+       fetchUsers();  
+     
+      })
+      .catch(error => {
+        console.error('Error fetching users: ', error);
+      });
+    
+
+  }
+
   return (
     <Box sx={{ width: 'calc(100% - 100px)', margin: 'auto', marginTop: '100px' }}>
-      <UserForm addUser= {AddUser} Submitted={submitted} /> {/* optional: pass refresh function */}
-      <UsersTable rows={users}  />
+      <UserForm addUser= {AddUser} UpdateUser ={updateUser}
+      Submitted={submitted} data={selectedUser} IsEdite={isEdite}/> {/* optional: pass refresh function */}
+      <UsersTable 
+      rows={users} 
+      selectedUser ={data =>{
+        SetselectedUser(data);
+        setIsEdite(true);
+
+      }} 
+      DeleteUSer={data => window.confirm("Are you sure")&& DeleteUSer(data)}
+      />
+
+       
      
     </Box>
   );
