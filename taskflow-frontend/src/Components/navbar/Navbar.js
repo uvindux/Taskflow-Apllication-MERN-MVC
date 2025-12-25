@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CheckCircle} from 'lucide-react';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +15,7 @@ const Navbar = () => {
 
   // mock auth state
   const user = true;
+  const Navigate = useNavigate();
 
   return (
     <>
@@ -37,10 +38,10 @@ const Navbar = () => {
 
           <div className={`navbar__menu ${isOpen ? 'active' : ''}`}>
             <ul className="navbar__links">
-              <li><a href="#home" onClick={closeMenu}>Home</a></li>
-              <li><a href="#about" onClick={closeMenu}>About</a></li>
-              <li><a href="#service" onClick={closeMenu}>Service</a></li>
-              <li><a href="#agent" onClick={closeMenu}>Agent</a></li>
+              <li><a href="#home" onClick={()=>{Navigate("/")}}>Home</a></li>
+              <li><a href="#about" onClick={() => { Navigate("/") }}>About</a></li>
+              <li><a href="#service" onClick={() => { Navigate("/") }}>Service</a></li>
+              <li><a href="#service" onClick={() => { Navigate("/") }}>Agent</a></li>
             </ul>
 
             {/* <div className="navbar__auth">

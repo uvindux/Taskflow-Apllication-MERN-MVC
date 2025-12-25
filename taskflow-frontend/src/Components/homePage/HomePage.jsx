@@ -30,7 +30,7 @@ function HomePage() {
                                                                       <button className="btn-primary btn-large" onClick={() => { navigate("/users")}}>Start for Free</button>
                                                                       <button className="btn-secondary btn-large" onClick={()=>{document.getElementById("about").scrollIntoView({behavior:"smooth"})}} >Learn More</button>
                                                             </div>
-                                                            <div className="hero-demo">
+                                                            <div className="hero-demo" id='service'>
                                                                       <div className="demo-card">
                                                                                 <div className="demo-content">
                                                                                           <div className="task-item task-completed">
