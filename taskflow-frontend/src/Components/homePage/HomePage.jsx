@@ -27,7 +27,7 @@ function HomePage() {
                                                                       The ultimate todo app to help you stay productive, focused, and in control of your daily goals.
                                                             </p>
                                                             <div className="hero-buttons">
-                                                                      <button className="btn-primary btn-large" onClick={()=>{navigate("/todo")}}>Start for Free</button>
+                                                                      <button className="btn-primary btn-large" onClick={() => { navigate("/users")}}>Start for Free</button>
                                                                       <button className="btn-secondary btn-large" onClick={()=>{document.getElementById("about").scrollIntoView({behavior:"smooth"})}} >Learn More</button>
                                                             </div>
                                                             <div className="hero-demo">

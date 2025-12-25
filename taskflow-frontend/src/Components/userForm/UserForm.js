@@ -1,70 +1,123 @@
-import { Button, Grid, Input, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-
+import React, { useEffect, useState } from 'react';
+import './UserForm.css';
 
 function UserForm({ addUser, Submitted, data, IsEdite, UpdateUser }) {
-  const [id, setId] = useState(0);
-  const [name, setname] = useState("");
-
-
+  const [id, setId] = useState('');
+  const [name, setName] = useState('');
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (!Submitted) {
-      setId(0);
-      setname("");
+      setId('');
+      setName('');
+      setErrors({});
     }
   }, [Submitted]);
+
   useEffect(() => {
-    if (data && data.id && data.id != 0) {
+    if (data && data.id && data.id !== 0) {
       setId(data.id);
-      setname(data.name);
-
+      setName(data.name);
     }
-  }, [data])
+  }, [data]);
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!id || id <= 0) {
+      newErrors.id = 'Please enter a valid ID';
+    }
+
+    if (!name.trim()) {
+      newErrors.name = 'Name is required';
+    } else if (name.trim().length < 2) {
+      newErrors.name = 'Name must be at least 2 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      if (IsEdite) {
+        UpdateUser({ id, name: name.trim() });
+      } else {
+        addUser({ id, name: name.trim() });
+      }
+    }
+  };
+
   return (
-    <Grid
-      container
-      spacing={2}
-      sx={{
-        backgroundColor: 'white',
-        marginBottom: '1rem',
-        display: 'block',
-      }
+    <div className="user-form-container">
+      <div className="form-card">
+        <div className="form-header">
+          <h1 className="form-title">
+            {IsEdite ? 'Edit User Details' : 'Add User Details'}
+          </h1>
+          <p className="form-subtitle">
+            {IsEdite ? 'Update the information below' : 'Fill in the information below'}
+          </p>
+        </div>
 
-      }
-    >
-      <Grid item xs={12} sx={{ marginTop: '10px', marginBottom: '10px' }}>
-        <Typography component={"h1"} sx={{ color: "#000000", fontSize: "20px", fontStyle: "bold" }}>Add your details</Typography>
+        <div className="form-body">
+          <div className="form-group">
+            <label htmlFor="id" className="form-label">
+              User ID
+              <span className="required">*</span>
+            </label>
+            <input
+              type="number"
+              id="id"
+              name="id"
+              className={`form-input ${errors.id ? 'input-error' : ''}`}
+              placeholder="Enter user ID"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+            {errors.id && <span className="error-message">{errors.id}</span>}
+          </div>
 
-      </Grid>
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">
+              Full Name
+              <span className="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              className={`form-input ${errors.name ? 'input-error' : ''}`}
+              placeholder="Enter full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            {errors.name && <span className="error-message">{errors.name}</span>}
+          </div>
 
-      <Grid item xs={12} sm={6} md={4} lg={3} xl={2} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography component={"label"} sx={{ color: "#000000", marginRight: '20px', fontSize: '16px', width: '100px', display: 'block' }}>ID</Typography>
-        <Input placeholder='Enter ID' type='number' name='id' id='id' sx={{ width: '400px' }} value={id} onChange={e => { setId(e.target.value) }}></Input>
-      </Grid>
-      {/*creating form things*/}
-
-      <Grid item xs={12} sm={6} md={4} lg={3} xl={2} sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography component={"label"} sx={{ color: "#000000", marginRight: '20px', fontSize: '16px', width: '100px', display: 'block' }}>Name</Typography>
-        <Input placeholder='Enter Name' type='text' name='name' id='name' sx={{ width: '400px' }} value={name} onChange={e => { setname(e.target.value) }}></Input>
-      </Grid>
-      <Button sx={{ margin: 'auto', marginBottom: '10px', backgroundColor: '#0d8a9dff', color: "white", marginTop: "10px", '&:hover': { opacity: "0.7", background: "#19d3f0ff" }, width: "130px", marginTop: "20px" }} onClick={() => IsEdite ? UpdateUser({ id, name }) : addUser({ id, name })}>
-
-        {
-          IsEdite ? `Update` : `Add`
-        }
-      </Button>
-      <button className='buttonclass'>Click me</button>
-      <p className='para1'>lorem</p>
-
-
-    </Grid>
-
-
-
-  )
-
+          <div className="form-actions">
+            <button className="btn-submit" onClick={handleSubmit}>
+              {IsEdite ? (
+                <>
+                  <svg className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                  </svg>
+                  Update User
+                </>
+              ) : (
+                <>
+                  <svg className="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Add User
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
-
 
 export default UserForm;
