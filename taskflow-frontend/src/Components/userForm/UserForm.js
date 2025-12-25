@@ -1,26 +1,26 @@
-  import { Button, Grid, Input, Typography } from '@mui/material'
+import { Button, Grid, Input, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
 
-function UserForm({addUser,Submitted,data,IsEdite,UpdateUser}) {
+function UserForm({ addUser, Submitted, data, IsEdite, UpdateUser }) {
   const [id, setId] = useState(0);
   const [name, setname] = useState("");
 
- 
 
-  useEffect(()=>{
-    if (!Submitted){
-       setId(0);
-       setname("");
+
+  useEffect(() => {
+    if (!Submitted) {
+      setId(0);
+      setname("");
     }
-  },[Submitted]);
-   useEffect(()=>{
-    if (data && data.id && data.id != 0){
+  }, [Submitted]);
+  useEffect(() => {
+    if (data && data.id && data.id != 0) {
       setId(data.id);
       setname(data.name);
 
     }
-   },[data])
+  }, [data])
   return (
     <Grid
       container
@@ -46,14 +46,18 @@ function UserForm({addUser,Submitted,data,IsEdite,UpdateUser}) {
 
       <Grid item xs={12} sm={6} md={4} lg={3} xl={2} sx={{ display: 'flex', alignItems: 'center' }}>
         <Typography component={"label"} sx={{ color: "#000000", marginRight: '20px', fontSize: '16px', width: '100px', display: 'block' }}>Name</Typography>
-        <Input placeholder='Enter Name' type='text' name='name' id='name' sx={{ width: '400px' }} value={name} onChange={e => {setname(e.target.value) }}></Input>
+        <Input placeholder='Enter Name' type='text' name='name' id='name' sx={{ width: '400px' }} value={name} onChange={e => { setname(e.target.value) }}></Input>
       </Grid>
-      <Button sx={{ margin: 'auto', marginBottom: '10px', backgroundColor: '#0d8a9dff', color: "white", marginTop: "10px", '&:hover': { opacity: "0.7", background: "#19d3f0ff" }, width: "130px", marginTop: "20px" }} onClick={()=> IsEdite? UpdateUser({id,name}): addUser({id,name})}> 
+      <Button sx={{ margin: 'auto', marginBottom: '10px', backgroundColor: '#0d8a9dff', color: "white", marginTop: "10px", '&:hover': { opacity: "0.7", background: "#19d3f0ff" }, width: "130px", marginTop: "20px" }} onClick={() => IsEdite ? UpdateUser({ id, name }) : addUser({ id, name })}>
 
-       {
-        IsEdite? `Update`: `Add`
-       }
+        {
+          IsEdite ? `Update` : `Add`
+        }
       </Button>
+      <button className='buttonclass'>Click me</button>
+      <p className='para1'>lorem</p>
+
+
     </Grid>
 
 
