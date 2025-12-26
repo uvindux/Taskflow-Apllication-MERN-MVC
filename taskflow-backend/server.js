@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const app = require('./app.js');
 const router = require('./router');
 
-const PORT = 3000;
+const PORT = 5000;
 const HOST = 'localhost';
 
 // Middleware

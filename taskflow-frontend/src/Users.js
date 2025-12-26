@@ -18,7 +18,7 @@ const Users = () => {
 
   // Function to fetch users from backend
   const fetchUsers = () => {
-    Axios.get('http://localhost:3000/api/users')  // ✅ added missing //
+    Axios.get('http://localhost:5000/api/users')  // ✅ added missing //
       .then(response => {
         console.log(response.data); // ✅ show real data
         setUsers(response.data);    // ✅ update state
@@ -34,7 +34,7 @@ const Users = () => {
       id: data.id,
       name:data.name,
     }
-    Axios.post ('http://localhost:3000/api/createuser',payload)
+    Axios.post ('http://localhost:5000/api/createuser',payload)
      .then(response => {
        
        fetchUsers();  
@@ -54,7 +54,7 @@ const Users = () => {
       id: data.id,
       name:data.name,
     }
-     Axios.post ('http://localhost:3000/api/updateuser',payload)
+     Axios.post ('http://localhost:5000/api/updateuser',payload)
      .then(response => {
        
        fetchUsers();  
@@ -69,7 +69,7 @@ const Users = () => {
   }
   const DeleteUSer=(data)=>{
    
-     Axios.post ('http://localhost:3000/api/deleteuser',data)
+     Axios.post ('http://localhost:5000/api/deleteuser',data)
      .then(response => {
        
        fetchUsers();  
